@@ -1,6 +1,6 @@
 // Define a variable 'alphabet' which is an array of 26 objects
 // Each object in the array contains a unique 'letter' property (one for each in the alphabet) and a 'count' property (initialised at 0)
-let alphabet = [
+const alphabet = [
     {letter: "a", count: 0},
     {letter: "b", count: 0},
     {letter: "c", count: 0},
@@ -29,44 +29,66 @@ let alphabet = [
     {letter: "z", count: 0}
 ]
 
+// Define a new empty array 'wordCharacterCount' which will later contain the values of all the 'count' properties in the original 'alphabet' array
+let wordCharacterCount = []
+
 // Define a function called 'charCounter', which takes a single argument 'word' (a string value)
-let charCounter = function (word) {
-
-    // Convert 'word' to all lowercase to avoid any issues with user input having capital letters
-
+const charCounter = function (word) {
 
     // Iterate through each object in the 'alphabet' array
-    for (let object = 0; object < alphabet.length; object++) {
-
+    alphabet.forEach(function (item) {
+        
         // Then iterate through each character in the 'word' string
         for (let i = 0; i < word.length; i++) {
 
             // Use conditional logic to check the value of each character
-            // Compare each character to the 'letter' property of the current object in the outer for loop
+            // Compare each character to the 'letter' property of the current object in the outer forEach() loop
             // If the character matches the letter in the object, increase the object count by 1
-            if (word[i] === alphabet[object].letter) {
-                alphabet[object].count = alphabet[object].count + 1
+            // Convert 'word' to all lowercase to avoid any issues with user input having capital letters
+            if (word.toLowerCase()[i] === item.letter) {
+                item.count = item.count + 1
             }
     
-        } // End of inner for loop (through 'word' characters)
+        } // End of inner for loop (checking each 'word' character)
 
-    } // End of outer for loop (through objects)
+    }) // End of first outer alphabet.forEach() loop
     
-    // Define a function 'highestCount' to see which object count has the highest value
-    let highestCount = function () {
+    // Find out which object 'count' has the highest value
+    // Iterate through each object in the 'alphabet' array
+    alphabet.forEach(function (item) {
 
-        
+        // Then store the 'alphabet.count' values inside the 'wordCharacterCount' array
+        wordCharacterCount.push(item.count)
 
+    }) // End of second alphabet.forEach() loop
+
+    // Determine which item in 'wordCharacterCount' has the highest value (i.e. the highest number of times a character appears in the 'word')
+    let freqCharNum = Math.max(...wordCharacterCount)
+
+    // Find out which item in 'wordCharacterCount' has the highest value
+    let freqChar = []
+    // Iterate through each object in the 'alphabet' array
+    alphabet.forEach(function (item) {
+
+        // If value of 'freqCharNum' matches the value of 'alphabet.count'
+        if (freqCharNum === item.count) {
+            freqChar.push(item.letter.toUpperCase())
+        }
+
+    }) // End of third alphabet.forEach() loop
+
+    // Log messages to the screen explaining the results! :)
+    console.log(`The word you entered is: '${word}'`)
+    console.log(`This word has a total of ${word.length} characters`)
+
+    // Check if there is more than one letter that appears most frequently & print a different message
+    if (freqChar.length === 1) {
+        console.log(`The most frequently occurring letter is '${freqChar}', which appears ${freqCharNum} times`)
+    } else {
+        console.log(`The most frequently occurring letters are '${freqChar}', which appear ${freqCharNum} times each`)
     }
-
-    console.log(`The word you entered is: ${word}`);
-    console.log(`This word has a total of ${word.length} characters.`);
-    console.log(`The most frequently occurring character is: ?`);
-    console.log(`This character appears ? times`);
 
 } // End of function 'charCounter'
 
-charCounter("aaabbc")
-console.log(alphabet)
-
-// console.log(alphabet[0].letter)
+// Call the function and provide a 'word'
+charCounter("Supercalifragilisticexpialidocious")
