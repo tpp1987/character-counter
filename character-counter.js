@@ -1,151 +1,94 @@
-// Define bindings for each letter of the alphabet, and assign each a numerical value of 0
-let letterA = 0, letterB = 0, letterC = 0, letterD = 0, letterE = 0, letterF = 0, letterG = 0, letterH = 0, letterI = 0, letterJ = 0, letterK = 0, letterL = 0, letterM = 0, letterN = 0, letterO = 0, letterP = 0, letterQ = 0, letterR = 0, letterS = 0, letterT = 0, letterU = 0, letterV = 0, letterW = 0, letterX = 0, letterY = 0, letterZ = 0;
-
-let letters = [
-    {name: letterA, value: 0},
-    {name: letterA, value: 0},
+// Define a variable 'alphabet' which is an array of 26 objects
+// Each object in the array contains a unique 'letter' property (one for each in the alphabet) and a 'count' property (initialised at 0)
+const alphabet = [
+    {letter: "a", count: 0},
+    {letter: "b", count: 0},
+    {letter: "c", count: 0},
+    {letter: "d", count: 0},
+    {letter: "e", count: 0},
+    {letter: "f", count: 0},
+    {letter: "g", count: 0},
+    {letter: "h", count: 0},
+    {letter: "i", count: 0},
+    {letter: "j", count: 0},
+    {letter: "k", count: 0},
+    {letter: "l", count: 0},
+    {letter: "m", count: 0},
+    {letter: "n", count: 0},
+    {letter: "o", count: 0},
+    {letter: "p", count: 0},
+    {letter: "q", count: 0},
+    {letter: "r", count: 0},
+    {letter: "s", count: 0},
+    {letter: "t", count: 0},
+    {letter: "u", count: 0},
+    {letter: "v", count: 0},
+    {letter: "w", count: 0},
+    {letter: "x", count: 0},
+    {letter: "y", count: 0},
+    {letter: "z", count: 0}
 ]
 
-// Define a function called charCounter, which takes a single argument (a word/string)
-function charCounter(word) {
+// Define a new empty array 'wordCharacterCount' which will later contain the values of all the 'count' properties in the original 'alphabet' array
+let wordCharacterCount = []
 
-    // Iterate through each letter in the word/string in turn
-    for (let i = 0; i < word.length; i++) {
+// Define a function called 'charCounter', which takes a single argument 'word' (a string value)
+const charCounter = function (word) {
+
+    // Iterate through each object in the 'alphabet' array
+    alphabet.forEach(function (item) {
         
-        // Use conditional logic to check the value of each character. If it equals "a", increase count of letterA variable; if not, check "b"; and so on...
-        if (word[i] === "a") {
-            letterA++;
-        } else if (word[i] === "b") {
-            letterB++;
-        } else if (word[i] === "c") {
-            letterC++;
-        } else if (word[i] === "d") {
-            letterD++;
-        } else if (word[i] === "e") {
-            letterE++;
-        } else if (word[i] === "f") {
-            letterF++;
-        } else if (word[i] === "g") {
-            letterG++;
-        } else if (word[i] === "h") {
-            letterH++;
-        } else if (word[i] === "i") {
-            letterI++;
-        } else if (word[i] === "j") {
-            letterJ++;
-        } else if (word[i] === "k") {
-            letterK++;
-        } else if (word[i] === "l") {
-            letterL++;
-        } else if (word[i] === "m") {
-            letterM++;
-        } else if (word[i] === "n") {
-            letterN++;
-        } else if (word[i] === "o") {
-            letterO++;
-        } else if (word[i] === "p") {
-            letterP++;
-        } else if (word[i] === "q") {
-            letterQ++;
-        } else if (word[i] === "r") {
-            letterR++;
-        } else if (word[i] === "s") {
-            letterS++;
-        } else if (word[i] === "t") {
-            letterT++;
-        } else if (word[i] === "u") {
-            letterU++;
-        } else if (word[i] === "v") {
-            letterV++;
-        } else if (word[i] === "w") {
-            letterW++;
-        } else if (word[i] === "x") {
-            letterX++;
-        } else if (word[i] === "y") {
-            letterY++;
-        } else {
-            letterZ++;
+        // Then iterate through each character in the 'word' string
+        for (let i = 0; i < word.length; i++) {
+
+            // Use conditional logic to check the value of each character
+            // Compare each character to the 'letter' property of the current object in the outer forEach() loop
+            // If the character matches the letter in the object, increase the object count by 1
+            // Convert 'word' to all lowercase to avoid any issues with user input having capital letters
+            if (word.toLowerCase()[i] === item.letter) {
+                item.count = item.count + 1
+            }
+    
+        } // End of inner for loop (checking each 'word' character)
+
+    }) // End of first outer alphabet.forEach() loop
+    
+    // Find out which object 'count' has the highest value
+    // Iterate through each object in the 'alphabet' array
+    alphabet.forEach(function (item) {
+
+        // Then store the 'alphabet.count' values inside the 'wordCharacterCount' array
+        wordCharacterCount.push(item.count)
+
+    }) // End of second alphabet.forEach() loop
+
+    // Determine which item in 'wordCharacterCount' has the highest value (i.e. the highest number of times a character appears in the 'word')
+    let freqCharNum = Math.max(...wordCharacterCount)
+
+    // Find out which item in 'wordCharacterCount' has the highest value
+    let freqChar = []
+    // Iterate through each object in the 'alphabet' array
+    alphabet.forEach(function (item) {
+
+        // If value of 'freqCharNum' matches the value of 'alphabet.count'
+        if (freqCharNum === item.count) {
+            freqChar.push(item.letter.toUpperCase())
         }
 
+    }) // End of third alphabet.forEach() loop
+
+    // Log messages to the screen explaining the results! :)
+    console.log(`The word you entered is: '${word}'`)
+    console.log(`This word has a total of ${word.length} characters`)
+
+    // Check if there is more than one letter that appears most frequently & print a different message
+    if (freqChar.length === 1) {
+        console.log(`The most frequently occurring letter is '${freqChar}', which appears ${freqCharNum} times`)
+    } else {
+        console.log(`The most frequently occurring letters are '${freqChar}', which appear ${freqCharNum} times each`)
     }
-
-    // We have now counted the instances of each letter of the alphabet within a given word/string, and stored their values in corresponding variables (letterA, letterB, etc.)
-
-    let wordChars = [
-        letterA,
-        letterB,
-        letterC,
-        letterD,
-        letterE,
-        letterF,
-        letterG,
-        letterH,
-        letterI,
-        letterJ,
-        letterK,
-        letterL,
-        letterM,
-        letterN,
-        letterO,
-        letterP,
-        letterQ,
-        letterR,
-        letterS,
-        letterT,
-        letterU,
-        letterV,
-        letterW,
-        letterX,
-        letterY,
-        letterZ
-    ];
-
-    let freqChar = Math.max(...wordChars);
-
-    letterC = "c";
-
-
-    // I'm trying to get the letter value of the letter with the highest frequency
-    // Perhaps rather than using an array, I could use an object where each item in the object contains two properties
-        // 1. for the count value, e.g. 3
-        // 2. for the letter value, e.g. "a"
-    let freqCharLetter = freqChar;
-
-    console.log(`The word you entered is: ${word}`);
-    console.log(`This word has a total of ${word.length} characters.`);
-    console.log(`The most frequently occurring character appears ${freqChar} times.`);
-    console.log(`This character is: ?`);
-
-
-    /*
-    console.log(letterA);
-    console.log(letterB);
-    console.log(letterC);
-    console.log(letterD);
-    console.log(letterE);
-    console.log(letterF);
-    console.log(letterG);
-    console.log(letterH);
-    console.log(letterI);
-    console.log(letterJ);
-    console.log(letterK);
-    console.log(letterL);
-    console.log(letterM);
-    console.log(letterN);
-    console.log(letterO);
-    console.log(letterP);
-    console.log(letterQ);
-    console.log(letterR);
-    console.log(letterS);
-    console.log(letterT);
-    console.log(letterU);
-    console.log(letterV);
-    console.log(letterW);
-    console.log(letterX);
-    console.log(letterY);
-    console.log(letterZ);
-    */
 
 } // End of function 'charCounter'
 
-charCounter("aaabbccc");
+// Call the function and provide a 'word'
+charCounter("Supercalifragilisticexpialidocious")
