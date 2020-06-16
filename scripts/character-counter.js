@@ -96,11 +96,9 @@ const charCounter = function (word) {
     userWord = ""
 }
 
-document.querySelector("#main-input").addEventListener("change", function (e) {
-    userWord = e.target.value
-})
-
-document.querySelector("#main-button").addEventListener("click", function (e) {
+document.querySelector("#word-form").addEventListener("submit", function (e) {
+    e.preventDefault()
+    userWord = e.target.elements.mainInput.value
     document.querySelector("#results").innerHTML = ""
     if (userWord.includes(0) || userWord.includes(1) || userWord.includes(2) || userWord.includes(3) || userWord.includes(4) || userWord.includes(5) || userWord.includes(6) || userWord.includes(7) || userWord.includes(8) || userWord.includes(9)) {
         const newParagraph = document.createElement("p")
@@ -113,4 +111,5 @@ document.querySelector("#main-button").addEventListener("click", function (e) {
     } else {
         charCounter(userWord)
     }
+    e.target.elements.mainInput.value = ""
 })
